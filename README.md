@@ -1,9 +1,6 @@
-# privateGPT
-Ask questions to your documents without an internet connection, using the power of LLMs. 100% private, no data leaves your execution environment at any point. You can ingest documents and ask questions without an internet connection!
+# Secure GPT
 
 Built with [LangChain](https://github.com/hwchase17/langchain), [GPT4All](https://github.com/nomic-ai/gpt4all), [LlamaCpp](https://github.com/ggerganov/llama.cpp), [Chroma](https://www.trychroma.com/) and [SentenceTransformers](https://www.sbert.net/).
-
-<img width="902" alt="demo" src="https://user-images.githubusercontent.com/721666/236942256-985801c9-25b9-48ef-80be-3acbb4575164.png">
 
 # Environment Setup
 In order to set your environment up to run the code here, first install all requirements:
@@ -11,17 +8,6 @@ In order to set your environment up to run the code here, first install all requ
 ```shell
 pip3 install -r requirements.txt
 ```
-
-*Alternative requirements installation with poetry*
-1. Install [poetry](https://python-poetry.org/docs/#installation)
-
-2. Run this commands
-```shell
-cd privateGPT
-poetry install
-poetry shell
-```
-
 Then, download the LLM model and place it in a directory of your choice:
 - LLM: default to [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). If you prefer a different GPT4All-J compatible model, just download it and reference it in your `.env` file.
 
@@ -73,19 +59,6 @@ Run the following command to ingest all the data.
 python ingest.py
 ```
 
-Output should look like this:
-
-```shell
-Creating new vectorstore
-Loading documents from source_documents
-Loading new documents: 100%|██████████████████████| 1/1 [00:01<00:00,  1.73s/it]
-Loaded 1 new documents from source_documents
-Split into 90 chunks of text (max. 500 tokens each)
-Creating embeddings. May take some minutes...
-Using embedded DuckDB with persistence: data will be stored in: db
-Ingestion complete! You can now run privateGPT.py to query your documents
-```
-
 It will create a `db` folder containing the local vectorstore. Will take 20-30 seconds per document, depending on the size of the document.
 You can ingest as many documents as you want, and all will be accumulated in the local embeddings database.
 If you want to start from an empty database, delete the `db` folder.
@@ -111,11 +84,6 @@ Note: you could turn off your internet connection, and the script inference woul
 
 Type `exit` to finish the script.
 
-
-### CLI
-The script also supports optional command-line arguments to modify its behavior. You can see a full list of these arguments by running the command ```python privateGPT.py --help``` in your terminal.
-
-
 # How does it work?
 Selecting the right local models and the power of `LangChain` you can run the entire pipeline locally, without any data leaving your environment, and with reasonable performance.
 
@@ -140,11 +108,6 @@ To install a C++ compiler on Windows 10/11, follow these steps:
    * C++ CMake tools for Windows
 3. Download the MinGW installer from the [MinGW website](https://sourceforge.net/projects/mingw/).
 4. Run the installer and select the `gcc` component.
-
-## Mac Running Intel
-When running a Mac with Intel hardware (not M1), you may run into _clang: error: the clang compiler does not support '-march=native'_ during pip install.
-
-If so set your archflags during pip install. eg: _ARCHFLAGS="-arch x86_64" pip3 install -r requirements.txt_
 
 # Disclaimer
 This is a test project to validate the feasibility of a fully private solution for question answering using LLMs and Vector embeddings. It is not production ready, and it is not meant to be used in production. The models selection is not optimized for performance, but for privacy; but it is possible to use different models and vectorstores to improve performance.
