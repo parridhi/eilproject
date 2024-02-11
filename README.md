@@ -11,3 +11,4 @@ Tech Stack:
 - GPT4All
 - LlamaCpp
 - ChromaDB
+- Sentence Transformers
